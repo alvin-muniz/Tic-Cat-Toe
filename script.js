@@ -13,6 +13,7 @@ displayBoard()
 function input(x,y){
     console.log(board[x][y])
     board[x][y] = "X"
+    document.querySelector(`.location-${x}${y}`).innerText = 'X'
 }
 
 function displayBoard(){

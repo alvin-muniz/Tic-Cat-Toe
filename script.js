@@ -21,22 +21,26 @@ class Game{
         this.createBoard()
     }
 
-    changePlayer(e){
+    changePlayer(winCondition){
         // console.log(this.currentPlayer);
         // console.log(this.currentPlayer);
-        if(this.currentPlayer == this.userTwo)
-        { console.log(this.gameCounter++)}
-
-        console.log("Check winner output", this.checkWinner());
-
-        if(e)
+        if(winCondition)
         {
             console.log("checkWinner in changePlayer hit")
             document.querySelector("h4").innerText = `Winner is ${this.currentPlayer.name}`
         }
         else{
-        this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
-        document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;}
+            if(this.currentPlayer == this.userTwo)
+            { console.log(this.gameCounter++)}
+
+            this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
+            document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;}
+
+
+
+        console.log("Check winner output", winCondition);
+
+
 
     }
 
@@ -76,6 +80,7 @@ class Game{
         this.board.forEach((e, index) =>{
             e.forEach((x, innerIndex) => {
                 x.innerText = index + "" + innerIndex;
+                x.setAttribute("style","pointer-events: auto")
             })
         })
     }
@@ -89,32 +94,21 @@ class Game{
             [this.board[0][1].innerText, this.board[1][1].innerText, this.board[2][1].innerText],
             [this.board[0][2].innerText, this.board[1][2].innerText, this.board[2][2].innerText],
             [this.board[0][0].innerText, this.board[1][1].innerText, this.board[2][2].innerText],
-            [this.board[2][0].innerText, this.board[1][1].innerText, this.board[2][2].innerText]
+            [this.board[2][0].innerText, this.board[1][1].innerText, this.board[2][2].innerText],
+            [this.board[0][0].innerText, this.board[1][0].innerText, this.board[2][0].innerText]
         ]
 
         console.log()
         set.forEach((e,index)=>{
             let player = [this.currentPlayer.marker, this.currentPlayer.marker, this.currentPlayer.marker].toString()
-            // console.log("array inside",e.toString())
-            // console.log(player)
 
-            // return e.toString() === player ? true : false;
-            //
-
-            console.log(e.toString() === player)
             if(e.toString() === player)
             {
-                console.log("Yessum! This combination won " + index)
+                // console.log("Yessum! This combination won " + index)
                 this.clearBoard()
                 winCondition = true;
             }
-
-            // console.log("for each",e)
-            // console.log("current player", player)
-
-            // e == [this.currentPlayer.marker, this.currentPlayer.marker, this.currentPlayer.marker] ? console.log("winner") : console.log("not yet")
         })
-        console.log("Winning Condition", winCondition)
 
         return winCondition
         //

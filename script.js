@@ -19,6 +19,7 @@ class Game{
         { console.log(this.counter++)}
         this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
         console.log(this.currentPlayer);
+        this.check()
         document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
 
     }
@@ -33,9 +34,8 @@ class Game{
         this.userTwo.marker = y;
     }
 
-    displayBoard(){
+    createBoard(){
         let mainGame = document.querySelector('main')
-
         this.board.forEach(
             (e, index) => {
                 e.forEach((x,innerIndex) =>{
@@ -54,7 +54,9 @@ class Game{
                 )
             }
         )
-    }//end display board
+    }//end create board
+
+
 
     check(){
         if(this.board[0][1].innerText == this.board[0][0].innerText && this.board[0][0].innerText == this.board[0][2].innerText) {
@@ -100,7 +102,7 @@ let userTwo = new User("Dog","O")
 
 let newGame = new Game(userOne,userTwo)
 
-newGame.displayBoard()
+newGame.createBoard()
 
 
 // function input(x,y){

@@ -4,19 +4,28 @@ class Game{
     constructor(userOne, userTwo){
         this.userOne = userOne;
         this.userTwo = userTwo;
-        this.currentPlayer = userOne;
         this.setCurrentPlayer(userOne)
+        this.counter = 1;
+        this.board = [
+            ["1","2","3"],
+            ["4","5","6"],
+            ["7","8","9"]
+        ]
     }
 
     changePlayer(){
         console.log(this.currentPlayer);
+        if(this.currentPlayer == this.userTwo)
+        { console.log(this.counter++)}
         this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
         console.log(this.currentPlayer);
-        document.querySelector("#currentPlayer").innerText = this.currentPlayer.marker;
+        document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
+
     }
 
     setCurrentPlayer(e){
-        document.querySelector("#currentPlayer").innerText = e.marker
+        this.currentPlayer = e
+        document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
     }
 
     setMarkers(x,y){
@@ -24,80 +33,80 @@ class Game{
         this.userTwo.marker = y;
     }
 
+    displayBoard(){
+        let mainGame = document.querySelector('main')
+
+        this.board.forEach(
+            (e, index) => {
+                e.forEach((x,innerIndex) =>{
+                        let tile = document.createElement("div");
+                        tile.classList.add("tile","location-"+`${index}${innerIndex}`);
+                        tile.innerText = index + "" + innerIndex;
+                        tile.addEventListener('click',()=>{
+                            tile.innerText = newGame.currentPlayer.marker;
+                            console.log(newGame.currentPlayer.marker)
+                            tile.setAttribute("style","pointer-events: none")
+                            newGame.changePlayer()
+                        })
+                        this.board[index][innerIndex] = tile;
+                        mainGame.appendChild(tile);
+                    }
+                )
+            }
+        )
+    }//end display board
+
+    check(){
+        if(this.board[0][1].innerText == this.board[0][0].innerText && this.board[0][0].innerText == this.board[0][2].innerText) {
+            //top row
+            console.log("top row")
+        }else if (this.board[1][1].innerText == this.board[1][0].innerText && this.board[1][0].innerText == this.board[1][2].innerText){
+            //middle row
+            console.log("middle row")
+        }else if (this.board[2][1].innerText == this.board[2][0].innerText && this.board[2][0].innerText == this.board[2][2].innerText){
+            //bottom row
+            console.log("bottom roww")
+        }else if (this.board[0][1].innerText == this.board[1][1].innerText && this.board[0][1].innerText == this.board[2][1].innerText){
+            //first column
+            console.log("middle down")
+        }else if(this.board[0][2].innerText == this.board[1][2].innerText && this.board[0][2].innerText == this.board[2][2].innerText){
+
+            console.log("last column")
+        } else if(this.board[0][0].innerText == this.board[1][1].innerText && this.board[0][0].innerText == this.board[2][2].innerText){
+            console.log("middle diagnol")
+        }else if(this.board[2][0].innerText == this.board[1][1].innerText && this.board[0][0].innerText == this.board[2][2].innerText){
+            console.log("2nd diagnol")
+        }else{
+
+        }
+    }//end check
+
 }
 
 class User{
-    constructor(marker){
-        this.marker = marker
+    constructor(name, marker){
+        this.marker = marker;
+        this.name = name;
     }
 }
 
 
 
-let mainGame = document.querySelector('main')
 
-const board = [
-    ["1","2","3"],
-    ["4","5","6"],
-    ["7","8","9"]
-]
 
-displayBoard()
 
-let userOne = new User("X")
-let userTwo = new User("O")
+let userOne = new User("Cat","X")
+let userTwo = new User("Dog","O")
 
 let newGame = new Game(userOne,userTwo)
 
-function check(){
-    if(board[0][1].innerText == board[0][0].innerText && board[0][0].innerText == board[0][2].innerText) {
-        //top row
-        console.log("top row")
-    }else if (board[1][1].innerText == board[1][0].innerText && board[1][0].innerText == board[1][2].innerText){
-        //middle row
-        console.log("middle row")
-    }else if (board[2][1].innerText == board[2][0].innerText && board[2][0].innerText == board[2][2].innerText){
-        //bottom row
-        console.log("bottom roww")
-    }else if (board[0][1].innerText == board[1][1].innerText && board[0][1].innerText == board[2][1].innerText){
-        //first column
-        console.log("middle down")
-    }else if(board[0][2].innerText == board[1][2].innerText && board[0][2].innerText == board[2][2].innerText){
+newGame.displayBoard()
 
-        console.log("last column")
-    } else if(board[0][0].innerText == board[1][1].innerText && board[0][0].innerText == board[2][2].innerText){
-        console.log("middle diagnol")
-    }else if(board[2][0].innerText == board[1][1].innerText && board[0][0].innerText == board[2][2].innerText){
-        console.log("2nd diagnol")
-    }else{
 
-    }
-}
+// function input(x,y){
+//     console.log(this.board[x][y])
+//     this.board[x][y] = "X"
+//     document.querySelector(`.location-${x}${y}`).innerText = 'X'
+// }
 
-function input(x,y){
-    console.log(board[x][y])
-    board[x][y] = "X"
-    document.querySelector(`.location-${x}${y}`).innerText = 'X'
-}
-
-function displayBoard(){
-    board.forEach(
-        (e, index) => {
-            e.forEach((x,innerIndex) =>{
-                let tile = document.createElement("div");
-                tile.classList.add("tile","location-"+`${index}${innerIndex}`);
-                tile.innerText = index + "" + innerIndex;
-                tile.addEventListener('click',()=>{
-                    tile.innerText = newGame.currentPlayer.marker;
-                    console.log(newGame.currentPlayer.marker)
-                    tile.setAttribute("style","pointer-events: none")
-                    newGame.changePlayer()
-                })
-                board[index][innerIndex] = tile;
-                mainGame.appendChild(tile);
-                }
-            )
-        }
-    )
-}
 

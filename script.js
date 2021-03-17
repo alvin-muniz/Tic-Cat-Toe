@@ -5,7 +5,7 @@ class Game{
         this.userOne = userOne;
         this.userTwo = userTwo;
         this.setCurrentPlayer(userOne)
-        this.counter = 1;
+        this.gameCounter = 1;
         this.board = [
             ["1","2","3"],
             ["4","5","6"],
@@ -13,13 +13,17 @@ class Game{
         ]
     }
 
+    startNewGame(){
+        this.createBoard()
+    }
+
     changePlayer(){
         console.log(this.currentPlayer);
         if(this.currentPlayer == this.userTwo)
-        { console.log(this.counter++)}
+        { console.log(this.gameCounter++)}
         this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
         console.log(this.currentPlayer);
-        this.check()
+        this.checkWinner()
         document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
 
     }
@@ -56,30 +60,39 @@ class Game{
         )
     }//end create board
 
+    clearBoard(){
+        this.board.forEach((e, index) =>{
+            e.forEach((x, innerIndex) => {
+                x.innerText = index + "" + innerIndex;
+            })
+        })
+    }
 
-
-    check(){
+    checkWinner(){
         if(this.board[0][1].innerText == this.board[0][0].innerText && this.board[0][0].innerText == this.board[0][2].innerText) {
-            //top row
             console.log("top row")
+            this.clearBoard()
+            return true;
         }else if (this.board[1][1].innerText == this.board[1][0].innerText && this.board[1][0].innerText == this.board[1][2].innerText){
-            //middle row
             console.log("middle row")
+            return true;
         }else if (this.board[2][1].innerText == this.board[2][0].innerText && this.board[2][0].innerText == this.board[2][2].innerText){
-            //bottom row
-            console.log("bottom roww")
+            console.log("bottom row")
+            return true;
         }else if (this.board[0][1].innerText == this.board[1][1].innerText && this.board[0][1].innerText == this.board[2][1].innerText){
-            //first column
             console.log("middle down")
+            return true;
         }else if(this.board[0][2].innerText == this.board[1][2].innerText && this.board[0][2].innerText == this.board[2][2].innerText){
-
             console.log("last column")
+            return true;
         } else if(this.board[0][0].innerText == this.board[1][1].innerText && this.board[0][0].innerText == this.board[2][2].innerText){
             console.log("middle diagnol")
+            return true;
         }else if(this.board[2][0].innerText == this.board[1][1].innerText && this.board[0][0].innerText == this.board[2][2].innerText){
             console.log("2nd diagnol")
+            return true;
         }else{
-
+            return false;
         }
     }//end check
 
@@ -91,9 +104,6 @@ class User{
         this.name = name;
     }
 }
-
-
-
 
 
 

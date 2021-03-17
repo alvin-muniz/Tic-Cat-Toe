@@ -1,5 +1,8 @@
 console.log("script.js loaded")
 
+
+
+
 class Game{
     constructor(userOne, userTwo){
         this.userOne = userOne;
@@ -11,20 +14,29 @@ class Game{
             ["4","5","6"],
             ["7","8","9"]
         ]
+
     }
 
     startNewGame(){
         this.createBoard()
     }
 
-    changePlayer(){
-        console.log(this.currentPlayer);
+    changePlayer(e){
+        // console.log(this.currentPlayer);
+        // console.log(this.currentPlayer);
         if(this.currentPlayer == this.userTwo)
         { console.log(this.gameCounter++)}
+
+        console.log("Check winner output", this.checkWinner());
+
+        if(e)
+        {
+            console.log("checkWinner in changePlayer hit")
+            document.querySelector("h4").innerText = `Winner is ${this.currentPlayer.name}`
+        }
+        else{
         this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
-        console.log(this.currentPlayer);
-        this.checkWinner()
-        document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
+        document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;}
 
     }
 
@@ -46,11 +58,11 @@ class Game{
                         let tile = document.createElement("div");
                         tile.classList.add("tile","location-"+`${index}${innerIndex}`);
                         tile.innerText = index + "" + innerIndex;
-                        tile.addEventListener('click',()=>{
-                            tile.innerText = newGame.currentPlayer.marker;
-                            console.log(newGame.currentPlayer.marker)
+                        tile.addEventListener('click',(e)=>{
+                            tile.innerText = this.currentPlayer.marker;
+                            console.log(this.currentPlayer.marker)
                             tile.setAttribute("style","pointer-events: none")
-                            newGame.changePlayer()
+                            this.changePlayer(this.checkWinner())
                         })
                         this.board[index][innerIndex] = tile;
                         mainGame.appendChild(tile);
@@ -69,31 +81,75 @@ class Game{
     }
 
     checkWinner(){
-        if(this.board[0][1].innerText == this.board[0][0].innerText && this.board[0][0].innerText == this.board[0][2].innerText) {
-            console.log("top row")
-            this.clearBoard()
-            return true;
-        }else if (this.board[1][1].innerText == this.board[1][0].innerText && this.board[1][0].innerText == this.board[1][2].innerText){
-            console.log("middle row")
-            return true;
-        }else if (this.board[2][1].innerText == this.board[2][0].innerText && this.board[2][0].innerText == this.board[2][2].innerText){
-            console.log("bottom row")
-            return true;
-        }else if (this.board[0][1].innerText == this.board[1][1].innerText && this.board[0][1].innerText == this.board[2][1].innerText){
-            console.log("middle down")
-            return true;
-        }else if(this.board[0][2].innerText == this.board[1][2].innerText && this.board[0][2].innerText == this.board[2][2].innerText){
-            console.log("last column")
-            return true;
-        } else if(this.board[0][0].innerText == this.board[1][1].innerText && this.board[0][0].innerText == this.board[2][2].innerText){
-            console.log("middle diagnol")
-            return true;
-        }else if(this.board[2][0].innerText == this.board[1][1].innerText && this.board[0][0].innerText == this.board[2][2].innerText){
-            console.log("2nd diagnol")
-            return true;
-        }else{
-            return false;
-        }
+        let winCondition = false
+        let set = [
+            [this.board[0][1].innerText, this.board[0][0].innerText, this.board[0][2].innerText ],
+            [this.board[1][1].innerText, this.board[1][0].innerText, this.board[1][2].innerText ],
+            [this.board[2][1].innerText, this.board[2][0].innerText, this.board[2][2].innerText ],
+            [this.board[0][1].innerText, this.board[1][1].innerText, this.board[2][1].innerText],
+            [this.board[0][2].innerText, this.board[1][2].innerText, this.board[2][2].innerText],
+            [this.board[0][0].innerText, this.board[1][1].innerText, this.board[2][2].innerText],
+            [this.board[2][0].innerText, this.board[1][1].innerText, this.board[2][2].innerText]
+        ]
+
+        console.log()
+        set.forEach((e,index)=>{
+            let player = [this.currentPlayer.marker, this.currentPlayer.marker, this.currentPlayer.marker].toString()
+            // console.log("array inside",e.toString())
+            // console.log(player)
+
+            // return e.toString() === player ? true : false;
+            //
+
+            console.log(e.toString() === player)
+            if(e.toString() === player)
+            {
+                console.log("Yessum! This combination won " + index)
+                this.clearBoard()
+                winCondition = true;
+            }
+
+            // console.log("for each",e)
+            // console.log("current player", player)
+
+            // e == [this.currentPlayer.marker, this.currentPlayer.marker, this.currentPlayer.marker] ? console.log("winner") : console.log("not yet")
+        })
+        console.log("Winning Condition", winCondition)
+
+        return winCondition
+        //
+        // if(this.board[0][1].innerText == this.board[0][0].innerText && this.board[0][0].innerText == this.board[0][2].innerText) {
+        // // if(set.includes([this.currentPlayer.marker, this.currentPlayer.marker, this.currentPlayer.marker])){
+        //     console.log("winner!")
+        //     this.clearBoard()
+        //     return true;
+        // }else if (this.board[1][1].innerText == this.board[1][0].innerText && this.board[1][0].innerText == this.board[1][2].innerText){
+        //     console.log("middle row")
+        //     this.clearBoard()
+        //     return true;
+        // }else if (this.board[2][1].innerText == this.board[2][0].innerText && this.board[2][0].innerText == this.board[2][2].innerText){
+        //     console.log("bottom row")
+        //     this.clearBoard()
+        //     return true;
+        // }else if (this.board[0][1].innerText == this.board[1][1].innerText && this.board[0][1].innerText == this.board[2][1].innerText){
+        //     console.log("middle down")
+        //     this.clearBoard()
+        //     return true;
+        // }else if(this.board[0][2].innerText == this.board[1][2].innerText && this.board[0][2].innerText == this.board[2][2].innerText){
+        //     console.log("last column")
+        //     this.clearBoard()
+        //     return true;
+        // } else if(this.board[0][0].innerText == this.board[1][1].innerText && this.board[0][0].innerText == this.board[2][2].innerText){
+        //     console.log("middle diagnol")
+        //     this.clearBoard()
+        //     return true;
+        // }else if(this.board[2][0].innerText == this.board[1][1].innerText && this.board[0][0].innerText == this.board[2][2].innerText){
+        //     console.log("2nd diagnol")
+        //     this.clearBoard()
+        //     return true;
+        // }else{
+        //     return false;
+        // }
     }//end check
 
 }
@@ -112,7 +168,8 @@ let userTwo = new User("Dog","O")
 
 let newGame = new Game(userOne,userTwo)
 
-newGame.createBoard()
+newGame.startNewGame()
+console.log(document.querySelector("#currentPlayer"))
 
 
 // function input(x,y){

@@ -1,12 +1,14 @@
 console.log("script.js loaded")
 
+class Session{
+    static totalGamesPlayed = [];
+}
 class Game {
     constructor(userOne, userTwo) {
         this.userOne = userOne;
         this.userTwo = userTwo;
         this.setCurrentPlayer(userOne)
         this.gameCounter = 1;
-
     }
 
     startNewGame() {
@@ -17,12 +19,13 @@ class Game {
         this.gameCounter++
 
         if (winCondition) {
-            document.querySelector("h4").innerText = `Winner is ${this.currentPlayer.name}`
             document.querySelector(".winModal").setAttribute("style","display: flex")
+            document.querySelector(".winModal h4").innerText = `Winner is ${this.currentPlayer.name}`
             document.querySelector("#resetGame").addEventListener('click',(e)=>{
                 e.preventDefault()
                 console.log("reset button clicked")
                 document.querySelector(".winModal").setAttribute("style","display: none")
+
                 this.resetGame()
             })
         }
@@ -115,10 +118,19 @@ class User {
     constructor(name, marker) {
         this.marker = marker;
         this.name = name;
+        this.wins = 0;
     }
 }
 
-let userOne = new User("Cat", "X")
-let userTwo = new User("Dog", "O")
-let newGame = new Game(userOne, userTwo)
-newGame.startNewGame()
+let startButton = document.querySelector("#startGame")
+startButton.addEventListener('click',()=>{
+    let session = new Session();
+    let userOne = new User("Cat", "X")
+    let userTwo = new User("Dog", "O")
+    let newGame = new Game(userOne, userTwo)
+    newGame.startNewGame()
+    document.querySelector(".introModal").setAttribute("style","display: none")
+})
+
+
+

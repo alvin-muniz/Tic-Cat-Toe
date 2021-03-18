@@ -1,5 +1,5 @@
 body{
-    background-color: rebeccapurple;
+    background-color: lightgoldenrodyellow;
 }
 
 header{
@@ -26,11 +26,17 @@ h4{
     gap: .5em;
 }
 .mock{
-    background-color: seagreen;
+    background-color: white;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+.avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .center{
@@ -42,7 +48,7 @@ h4{
     width: 100%;
 }
 .tile{
-    background-color: mediumslateblue;
+    background-color: white;
     height: 20vh;
     width: 20vh;
     display: flex;
@@ -52,12 +58,20 @@ h4{
 }
 
 main{
-    background-color: yellow;
+    background-color: black;
     height: 100%;
     width: fit-content;
     display: grid;
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: .5em;
+}
+
+@media only screen and (max-width: 600px) {
+    .tile{
+        background-color: pink;
+        height: 13vh;
+        width: 13vh;
+    }
 
 }

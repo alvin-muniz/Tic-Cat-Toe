@@ -58,6 +58,16 @@ h4{
 
 }
 
+.playerOneScore{
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.playerTwoScore{
+    grid-column: 3;
+    grid-row: 3;
+}
+
 .introModal{
     display: flex;
     position: absolute;

@@ -3,8 +3,9 @@ body{
 }
 
 header{
+    grid-column: span 3;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     font-size: 3em;
     margin: 0;
@@ -54,6 +55,19 @@ h4{
     display: flex;
     align-items: center;
     justify-content: center;
+
+}
+
+.winModal{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    background-color: rebeccapurple;
 
 }
 

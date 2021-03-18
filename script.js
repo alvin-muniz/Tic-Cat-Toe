@@ -18,6 +18,13 @@ class Game {
 
         if (winCondition) {
             document.querySelector("h4").innerText = `Winner is ${this.currentPlayer.name}`
+            document.querySelector(".winModal").setAttribute("style","display: flex")
+            document.querySelector("#resetGame").addEventListener('click',(e)=>{
+                e.preventDefault()
+                console.log("reset button clicked")
+                document.querySelector(".winModal").setAttribute("style","display: none")
+                this.resetGame()
+            })
         }
          else if (this.gameCounter == 10) {
             document.querySelector("h4").innerText = `It's a cat's game, meow`
@@ -27,7 +34,6 @@ class Game {
             this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
             document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
         }//else
-
     }
 
     setCurrentPlayer(e) {
@@ -97,7 +103,7 @@ class Game {
         set.forEach((e, index) => {
             let player = [this.currentPlayer.marker, this.currentPlayer.marker, this.currentPlayer.marker].toString()
             if (e.toString() === player) {
-                this.resetGame()
+                // this.resetGame()
                 winCondition = true;
             }
         })

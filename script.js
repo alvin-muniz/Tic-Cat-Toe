@@ -135,13 +135,18 @@ class User {
         this.wins = 0;
     }
 }
-let userOne = new User("Cat", "X")
-let userTwo = new User("Dog", "O")
+
+let userOne = new User("", "X")
+let userTwo = new User("", "O")
 
 let startButton = document.querySelector("#startGame")
 startButton.addEventListener('click', () =>{
+    userOne.name= document.querySelector("#playerOneName").value
+    userTwo.name = document.querySelector("#playerTwoName").value
     Session.totalGamesPlayed.push(new Game(userOne, userTwo))
     document.querySelector(".introModal").setAttribute("style", "display: none")
+    // console.log(document.querySelector("#playerOneName").value)
+    // console.log(document.querySelector("#playerTwoName").value)
 })
 
 document.querySelector("#resetGame").addEventListener('click', (e) => {

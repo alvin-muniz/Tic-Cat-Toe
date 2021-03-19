@@ -37,3 +37,43 @@ As an approach I had wanted to focus on a 3 scenario situation where the user is
 ![image info](images/wireframes.png)
 
 
+Win Logic:
+The win logic was an area that went through massive refactoring. I had to essentially create a set of win conditions, base cases and then compared.
+This give me a worse case complexity of n = 72 I believe which is nice and consistent.
+
+```
+checkWinner() {
+        let winCondition = false
+        let set = [
+            //top
+            [this.board[0][1].innerText, this.board[0][0].innerText, this.board[0][2].innerText],
+            //middle
+            [this.board[1][1].innerText, this.board[1][0].innerText, this.board[1][2].innerText],
+            //bottom
+            [this.board[2][1].innerText, this.board[2][0].innerText, this.board[2][2].innerText],
+            //middle column
+            [this.board[0][1].innerText, this.board[1][1].innerText, this.board[2][1].innerText],
+            //last column
+            [this.board[0][2].innerText, this.board[1][2].innerText, this.board[2][2].innerText],
+            //diagnol
+            [this.board[0][0].innerText, this.board[1][1].innerText, this.board[2][2].innerText],
+            //reverse diagnol
+            [this.board[2][0].innerText, this.board[1][1].innerText, this.board[0][2].innerText],
+            //first Column
+            [this.board[0][0].innerText, this.board[1][0].innerText, this.board[2][0].innerText]
+        ]
+
+        set.forEach((e, index) => {
+            let player = [this.currentPlayer.marker, this.currentPlayer.marker, this.currentPlayer.marker].toString()
+            if (e.toString() === player) {
+                // this.resetGame()
+                winCondition = true;
+            }
+        })
+        return winCondition
+    }//end check
+}
+```
+Future Objectives:
+Implement Web Sockets
+I currently implemented socket io on a separate branch. The goal is expand that to be inclusive of multiplayer ability.

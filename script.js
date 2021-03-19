@@ -44,7 +44,7 @@ class Game {
             document.querySelector(".draw").innerText = this.draws++
         } else {
             this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
-            document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
+            document.querySelector("#currentPlayer").innerText = `It's your turn ${this.currentPlayer.name}:  ${this.currentPlayer.marker}`
         }//else
     }
 
@@ -57,7 +57,7 @@ class Game {
 
     setCurrentPlayer(e) {
         this.currentPlayer = e
-        document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
+        document.querySelector("#currentPlayer").innerText = `It's your turn ${this.currentPlayer.name}:  ${this.currentPlayer.marker}`;
     }
 
     setMarkers(x, y) {

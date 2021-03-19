@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 body{
     background-color: lightgoldenrodyellow;
+    font-family: 'Fredoka One', sans-serif;
 }
 
 header{
@@ -49,12 +52,14 @@ h4{
     width: 100%;
 }
 .tile{
-    background-color: white;
+    background-color: rebeccapurple;
+    border-radius: 15px;
     height: 20vh;
     width: 20vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white
 
 }
 
@@ -76,6 +81,7 @@ h4{
 .introModal{
     display: flex;
     position: absolute;
+    flex-direction: column;
     top: 0;
     left: 0;
     height: 100vh;
@@ -94,11 +100,11 @@ h4{
     width: 100vw;
     justify-content: center;
     align-items: center;
-    background-color: rebeccapurple;
+    background-color: lightyellow;
 }
 
 main{
-    background-color: black;
+
     height: 100%;
     width: fit-content;
     display: grid;

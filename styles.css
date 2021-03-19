@@ -68,6 +68,11 @@ h4{
     grid-row: 3;
 }
 
+.draw{
+    grid-column: 2;
+    grid-row: 3;
+}
+
 .introModal{
     display: flex;
     position: absolute;

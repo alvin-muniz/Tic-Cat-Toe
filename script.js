@@ -5,11 +5,13 @@ class Session {
 }
 
 class Game {
-    constructor(userOne, userTwo) {
+    constructor(userOne, userTwo, draws = 0) {
         this.userOne = userOne;
         this.userTwo = userTwo;
         this.setCurrentPlayer(userOne)
         this.gameCounter = 1;
+        this.draws = draws
+
         this.startNewGame()
     }
 
@@ -17,17 +19,12 @@ class Game {
         if (this.gameCounter !== 1) {
             this.gameCounter = 1;
         }
-
         let nodes = document.querySelectorAll(".tile")
         nodes.forEach((e, index) => {
             e.remove()
-
         });
-
         this.createBoard()
-
     }
-
 
     changePlayer(winCondition) {
         this.gameCounter++
@@ -37,8 +34,14 @@ class Game {
             this.currentPlayer.wins++
             this.setScore()
         } else if (this.gameCounter == 10) {
+            if(!this.draws)
+            {
+                this.draws = 1
+                console.log("Draws updates",this.draws)
+            }
             document.querySelector(".winModal").setAttribute("style", "display: flex")
             document.querySelector(".winModal h4").innerText = `Cat's Game Meow`
+            document.querySelector(".draw").innerText = this.draws++
         } else {
             this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
             document.querySelector("#currentPlayer").innerText = this.currentPlayer.name + " " + this.currentPlayer.marker;
@@ -143,9 +146,11 @@ startButton.addEventListener('click', () =>{
 
 document.querySelector("#resetGame").addEventListener('click', (e) => {
         e.preventDefault()
+        let draws = parseInt(document.querySelector(".draw").innerText);
+        console.log("this is within event listener",draws++)
         document.querySelector(".winModal").setAttribute("style", "display: none")
         console.log("Total games played", Session.totalGamesPlayed)
-        Session.totalGamesPlayed.push(new Game(userOne, userTwo));
+        Session.totalGamesPlayed.push(new Game(userOne, userTwo, draws));
         console.log("Session number", Session.totalGamesPlayed.length)
     }
 )

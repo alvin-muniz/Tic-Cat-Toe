@@ -89,17 +89,19 @@ class Game {
         tile.classList.add("tile", "location-" + `${x}${y}`);
         //tile.innerText = x + "" + y;
         tile.addEventListener('click', (e) => {
-
             tile.classList.add("animate__headShake","animate__animated");
             tile.innerText = this.currentPlayer.marker;
-            tile.setAttribute("style", "pointer-events: none")
-            if(this.currentPlayer == this.userOne)
-            {  tile.setAttribute("style","background-color: deepskyblue")}
+            if(this.currentPlayer == this.userOne) {
+                tile.setAttribute("style", "background-color: deepskyblue")
+                //
+            }
             else{
                 tile.setAttribute("style","background-color: mediumorchid")
+                // tile.setAttribute("style", "pointer-events: none")
             }
+            // e.target.setAttribute("style", "color: yellow")
             this.changePlayer(this.checkWinner())
-        })//event listener
+        },{once:true})//event listener
         this.board[x][y] = tile;
     }
 

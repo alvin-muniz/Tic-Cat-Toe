@@ -15,6 +15,14 @@ header{
     padding: 0;
 }
 
+button{
+    padding: 1em;
+    background-color: rebeccapurple;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Fredoka One', sans-serif;
+}
+
 h4{
     margin: 0;
     padding: 0;
@@ -139,8 +147,12 @@ main{
 @media only screen and (max-width: 600px) {
     .tile{
         background-color: pink;
-        height: 13vh;
-        width: 13vh;
+        height: 10vh;
+        width: 10vh;
+    }
+
+    .main{
+        height:0;
     }
 
 }

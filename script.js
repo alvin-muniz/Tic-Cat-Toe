@@ -41,7 +41,7 @@ class Game {
             }
             document.querySelector(".winModal").setAttribute("style", "display: flex")
             document.querySelector(".winModal h4").innerText = `Cat's Game Meow`
-            document.querySelector(".draw").innerText = this.draws++
+            document.querySelector(".draw").innerText = `Draws: ${this.draws++}`
         } else {
             this.currentPlayer = this.currentPlayer == this.userOne ? this.userTwo : this.userOne;
             document.querySelector("#currentPlayer").innerText = `It's your turn ${this.currentPlayer.name}:  ${this.currentPlayer.marker}`

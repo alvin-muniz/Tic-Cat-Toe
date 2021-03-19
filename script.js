@@ -58,6 +58,7 @@ class Game {
     setCurrentPlayer(e) {
         this.currentPlayer = e
         document.querySelector("#currentPlayer").innerText = `It's your turn ${this.currentPlayer.name}:  ${this.currentPlayer.marker}`;
+
     }
 
     setMarkers(x, y) {
@@ -86,10 +87,17 @@ class Game {
 
     setTile(tile, x, y) {
         tile.classList.add("tile", "location-" + `${x}${y}`);
-        tile.innerText = x + "" + y;
+        //tile.innerText = x + "" + y;
         tile.addEventListener('click', (e) => {
+
+            tile.classList.add("animate__headShake","animate__animated");
             tile.innerText = this.currentPlayer.marker;
             tile.setAttribute("style", "pointer-events: none")
+            if(this.currentPlayer == this.userOne)
+            {  tile.setAttribute("style","background-color: deepskyblue")}
+            else{
+                tile.setAttribute("style","background-color: mediumorchid")
+            }
             this.changePlayer(this.checkWinner())
         })//event listener
         this.board[x][y] = tile;
